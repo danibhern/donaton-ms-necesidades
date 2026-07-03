@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("test")
-public class NecesidadRepositoryTests {
+class NecesidadRepositoryTests {
 
     @Autowired
     private NecesidadRepository necesidadRepository;
@@ -23,9 +23,8 @@ public class NecesidadRepositoryTests {
     private Necesidad necesidad2;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         necesidadRepository.deleteAll();
-
 
         necesidad1 = Necesidad.builder()
                 .descripcion("Falta agua embotellada")
@@ -54,7 +53,7 @@ public class NecesidadRepositoryTests {
     }
 
     @Test
-    public void testGuardarNecesidad_DeberiaPersistirCorrectamente() {
+    void testGuardar_Exito() {
         Necesidad nueva = Necesidad.builder()
                 .descripcion("Kits de aseo personal")
                 .tipoRecurso(TipoRecurso.HIGIENE)
@@ -70,27 +69,27 @@ public class NecesidadRepositoryTests {
     }
 
     @Test
-    public void testFindByEstado_DeberiaRetornarCoincidencias() {
+    void testBuscarPorEstado_FiltroPendiente() {
         List<Necesidad> result = necesidadRepository.findByEstado(EstadoNecesidad.PENDIENTE);
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getDescripcion()).contains("agua");
     }
 
     @Test
-    public void testFindByRegion_DeberiaRetornarCoincidencias() {
+    void testBuscarPorRegion_FiltroBiobio() {
         List<Necesidad> result = necesidadRepository.findByRegion("Biobío");
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getTipoRecurso()).isEqualTo(TipoRecurso.ROPA);
     }
 
     @Test
-    public void testFindByTipoRecurso_DeberiaRetornarCoincidencias() {
+    void testBuscarPorTipoRecurso_FiltroAlimento() {
         List<Necesidad> result = necesidadRepository.findByTipoRecurso(TipoRecurso.ALIMENTO_NO_PERECIBLE);
         assertThat(result).hasSize(1);
     }
 
     @Test
-    public void testFindByReportadoPorId_DeberiaRetornarCoincidencias() {
+    void testBuscarPorReportadoPorId_FiltroUsuario() {
         List<Necesidad> result = necesidadRepository.findByReportadoPorId(10L);
         assertThat(result).hasSize(2);
     }
