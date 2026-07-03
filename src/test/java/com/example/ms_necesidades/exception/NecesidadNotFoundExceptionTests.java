@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class NecesidadNotFoundExceptionTests {
 
     @Test
-    void testException_DeberiaConstruirElMensajeCorrecto() {
+    void obtenerMensaje_Exito() {
         Long idInexistente = 404L;
         NecesidadNotFoundException exception = new NecesidadNotFoundException(idInexistente);
 
